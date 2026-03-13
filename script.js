@@ -13,13 +13,6 @@
      close (recent iterations), slower ones lag behind
      (earlier iterations converging to the minimum).
   ──────────────────────────────────── */
-  const cur = document.getElementById('cur');
-  if (cur) {
-    document.addEventListener('mousemove', (e) => {
-      cur.style.left = e.clientX + 'px';
-      cur.style.top  = e.clientY + 'px';
-    });
-  }
 
   /* ────────────────────────────────────
      Nav — scroll behaviour
