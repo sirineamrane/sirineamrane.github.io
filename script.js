@@ -7,48 +7,56 @@
   'use strict';
 
   /* ────────────────────────────────────
-     Custom Cursor
+     SGD Convergence Cursor
+     Each particle independently follows the mouse
+     with a different lerp factor — faster ones stay
+     close (recent iterations), slower ones lag behind
+     (earlier iterations converging to the minimum).
   ──────────────────────────────────── */
-  const cursor    = document.getElementById('cursor');
-  const cursorDot = document.getElementById('cursorDot');
+  const cursorMain = document.getElementById('cursorMain');
+  const particles  = Array.from(document.querySelectorAll('.sgd-particle'));
 
-  if (cursor && cursorDot && window.matchMedia('(hover: hover)').matches) {
-    let mx = -100, my = -100;
-    let rx = -100, ry = -100;
-    let moved = false;
+  const lerpFactors = [0.22, 0.15, 0.10, 0.06, 0.035];
 
+  let mx = -200, my = -200;
+  let moved = false;
+
+  const pos = particles.map(() => ({ x: -200, y: -200 }));
+
+  if (cursorMain && window.matchMedia('(hover: hover)').matches) {
     document.addEventListener('mousemove', (e) => {
       mx = e.clientX;
       my = e.clientY;
 
+      cursorMain.style.left = mx + 'px';
+      cursorMain.style.top  = my + 'px';
+
       if (!moved) {
         moved = true;
-        cursor.classList.add('visible');
-        cursorDot.classList.add('visible');
+        cursorMain.classList.add('visible');
+        particles.forEach((p) => p.classList.add('visible'));
       }
-
-      cursorDot.style.left = mx + 'px';
-      cursorDot.style.top  = my + 'px';
     });
 
-    (function animateCursor() {
-      rx += (mx - rx) * 0.1;
-      ry += (my - ry) * 0.1;
-      cursor.style.left = rx + 'px';
-      cursor.style.top  = ry + 'px';
-      requestAnimationFrame(animateCursor);
+    (function animate() {
+      particles.forEach((p, i) => {
+        pos[i].x += (mx - pos[i].x) * lerpFactors[i];
+        pos[i].y += (my - pos[i].y) * lerpFactors[i];
+        p.style.left = pos[i].x + 'px';
+        p.style.top  = pos[i].y + 'px';
+      });
+      requestAnimationFrame(animate);
     })();
 
+    /* Scale up on interactive elements */
     document.querySelectorAll('a, button, .work-card, .research-card, .hobby-card, .contact-link').forEach((el) => {
       el.addEventListener('mouseenter', () => {
-        cursor.style.width       = '48px';
-        cursor.style.height      = '48px';
-        cursor.style.borderColor = 'rgba(167, 139, 250, 0.75)';
+        cursorMain.style.transform = 'translate(-50%, -50%) scale(2.2)';
+        cursorMain.style.boxShadow = '0 0 14px rgba(212, 184, 126, 0.9)';
       });
       el.addEventListener('mouseleave', () => {
-        cursor.style.width       = '30px';
-        cursor.style.height      = '30px';
-        cursor.style.borderColor = 'rgba(139, 92, 246, 0.55)';
+        cursorMain.style.transform = 'translate(-50%, -50%) scale(1)';
+        cursorMain.style.boxShadow = '0 0 8px rgba(212, 184, 126, 0.7)';
       });
     });
   }
@@ -65,19 +73,16 @@
   /* ────────────────────────────────────
      Nav — active link highlight
   ──────────────────────────────────── */
-  const sections  = document.querySelectorAll('section[id]');
-  const navLinks  = document.querySelectorAll('.nav-links a[href^="#"]');
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
 
   window.addEventListener('scroll', () => {
     let current = '';
     sections.forEach((s) => {
-      if (window.scrollY >= s.offsetTop - 200) {
-        current = s.getAttribute('id');
-      }
+      if (window.scrollY >= s.offsetTop - 200) current = s.getAttribute('id');
     });
     navLinks.forEach((link) => {
-      const isActive = link.getAttribute('href') === '#' + current;
-      link.style.color = isActive ? '#a78bfa' : '';
+      link.style.color = link.getAttribute('href') === '#' + current ? '#d4b87e' : '';
     });
   }, { passive: true });
 
@@ -92,7 +97,6 @@
     menuOpen = typeof force !== 'undefined' ? force : !menuOpen;
     mobileMenu.classList.toggle('open', menuOpen);
     document.body.style.overflow = menuOpen ? 'hidden' : '';
-
     const [s1, s2] = navToggle.querySelectorAll('span');
     if (menuOpen) {
       s1.style.transform = 'translateY(6.5px) rotate(45deg)';
@@ -104,38 +108,30 @@
   }
 
   navToggle.addEventListener('click', () => toggleMenu());
-
   document.querySelectorAll('.mobile-link').forEach((link) => {
     link.addEventListener('click', () => toggleMenu(false));
   });
 
   /* ────────────────────────────────────
-     Scroll Reveal — IntersectionObserver
+     Scroll Reveal
   ──────────────────────────────────── */
   const revealObs = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    },
+    (entries) => entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add('visible'); }),
     { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
   );
-
   document.querySelectorAll('.reveal').forEach((el) => revealObs.observe(el));
 
   /* ────────────────────────────────────
-     Stagger delays within grid containers
+     Stagger delays in grids
   ──────────────────────────────────── */
-  document.querySelectorAll('.research-grid, .work-grid, .hobbies-grid, .about-tags, .contact-links').forEach((container) => {
-    container.querySelectorAll('.reveal, .tag, .contact-link').forEach((el, i) => {
+  document.querySelectorAll('.research-grid, .work-grid, .hobbies-grid, .contact-links').forEach((container) => {
+    container.querySelectorAll('.reveal, .contact-link').forEach((el, i) => {
       el.style.transitionDelay = `${i * 0.07}s`;
     });
   });
 
   /* ────────────────────────────────────
-     Hero — staggered entrance on load
+     Hero entrance
   ──────────────────────────────────── */
   window.addEventListener('load', () => {
     document.querySelectorAll('.hero .reveal').forEach((el, i) => {
