@@ -50,6 +50,28 @@
   ──────────────────────────────────── */
 
   /* ────────────────────────────────────
+     Audio player
+  ──────────────────────────────────── */
+  const audio     = document.getElementById('bgAudio');
+  const audioBtn  = document.getElementById('audioBtn');
+  const iconPlay  = document.getElementById('audioIconPlay');
+  const iconPause = document.getElementById('audioIconPause');
+
+  audioBtn.addEventListener('click', () => {
+    if (audio.paused) {
+      audio.play();
+      iconPlay.style.display  = 'none';
+      iconPause.style.display = '';
+      audioBtn.classList.add('playing');
+    } else {
+      audio.pause();
+      iconPlay.style.display  = '';
+      iconPause.style.display = 'none';
+      audioBtn.classList.remove('playing');
+    }
+  });
+
+  /* ────────────────────────────────────
      Nav — scroll behaviour
   ──────────────────────────────────── */
   const nav = document.getElementById('nav');
