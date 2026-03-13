@@ -13,41 +13,11 @@
      close (recent iterations), slower ones lag behind
      (earlier iterations converging to the minimum).
   ──────────────────────────────────── */
-  const cursorMain = document.getElementById('cursorMain');
-  const particles  = Array.from(document.querySelectorAll('.sgd-particle'));
-
-  const lerpFactors = [0.22, 0.15, 0.10, 0.06, 0.035];
-
-  let mx = -20, my = -20;
-  const pos = particles.map(() => ({ x: -20, y: -20 }));
-
-  if (cursorMain) {
+  const cur = document.getElementById('cur');
+  if (cur) {
     document.addEventListener('mousemove', (e) => {
-      mx = e.clientX;
-      my = e.clientY;
-      cursorMain.style.left = mx + 'px';
-      cursorMain.style.top  = my + 'px';
-    });
-
-    (function animate() {
-      particles.forEach((p, i) => {
-        pos[i].x += (mx - pos[i].x) * lerpFactors[i];
-        pos[i].y += (my - pos[i].y) * lerpFactors[i];
-        p.style.left = pos[i].x + 'px';
-        p.style.top  = pos[i].y + 'px';
-      });
-      requestAnimationFrame(animate);
-    })();
-
-    document.querySelectorAll('a, button, .work-card, .research-card, .hobby-card, .contact-link').forEach((el) => {
-      el.addEventListener('mouseenter', () => {
-        cursorMain.style.transform = 'translate(-50%, -50%) scale(2.2)';
-        cursorMain.style.boxShadow = '0 0 14px rgba(212, 184, 126, 0.9)';
-      });
-      el.addEventListener('mouseleave', () => {
-        cursorMain.style.transform = 'translate(-50%, -50%) scale(1)';
-        cursorMain.style.boxShadow = '0 0 8px rgba(212, 184, 126, 0.7)';
-      });
+      cur.style.left = e.clientX + 'px';
+      cur.style.top  = e.clientY + 'px';
     });
   }
 
