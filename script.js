@@ -7,6 +7,45 @@
   'use strict';
 
   /* ────────────────────────────────────
+     Attention Weights Cursor
+     4 particles orbit the cursor at different
+     radii and speeds, like attention heads
+     scanning different parts of the input.
+  ──────────────────────────────────── */
+  const ods = [
+    document.getElementById('od0'),
+    document.getElementById('od1'),
+    document.getElementById('od2'),
+    document.getElementById('od3'),
+  ];
+
+  const orbits = [
+    { r: 20, speed: 0.048, angle: 0 },
+    { r: 30, speed: 0.031, angle: Math.PI * 0.5 },
+    { r: 15, speed: 0.068, angle: Math.PI },
+    { r: 24, speed: 0.039, angle: Math.PI * 1.5 },
+  ];
+
+  let mx = -100, my = -100;
+  let cx = -100, cy = -100;
+
+  document.addEventListener('mousemove', (e) => {
+    mx = e.clientX;
+    my = e.clientY;
+  });
+
+  (function animateOrbits() {
+    cx += (mx - cx) * 0.18;
+    cy += (my - cy) * 0.18;
+    orbits.forEach((o, i) => {
+      o.angle += o.speed;
+      ods[i].style.left = (cx + o.r * Math.cos(o.angle)) + 'px';
+      ods[i].style.top  = (cy + o.r * Math.sin(o.angle)) + 'px';
+    });
+    requestAnimationFrame(animateOrbits);
+  })();
+
+  /* ────────────────────────────────────
      SGD Convergence Cursor
      Each particle independently follows the mouse
      with a different lerp factor — faster ones stay
