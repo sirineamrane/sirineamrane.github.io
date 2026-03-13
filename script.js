@@ -23,7 +23,7 @@
 
   const pos = particles.map(() => ({ x: -200, y: -200 }));
 
-  if (cursorMain && window.matchMedia('(hover: hover)').matches) {
+  if (cursorMain) {
     document.addEventListener('mousemove', (e) => {
       mx = e.clientX;
       my = e.clientY;
@@ -33,6 +33,7 @@
 
       if (!moved) {
         moved = true;
+        document.body.style.cursor = 'none';
         cursorMain.classList.add('visible');
         particles.forEach((p) => p.classList.add('visible'));
       }
@@ -48,7 +49,6 @@
       requestAnimationFrame(animate);
     })();
 
-    /* Scale up on interactive elements */
     document.querySelectorAll('a, button, .work-card, .research-card, .hobby-card, .contact-link').forEach((el) => {
       el.addEventListener('mouseenter', () => {
         cursorMain.style.transform = 'translate(-50%, -50%) scale(2.2)';

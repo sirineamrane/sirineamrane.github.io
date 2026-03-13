@@ -44,9 +44,7 @@ body {
   overflow-x: hidden;
 }
 
-@media (hover: hover) {
-  body { cursor: none; }
-}
+body { cursor: none; }
 
 a {
   color: inherit;
