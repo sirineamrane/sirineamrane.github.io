@@ -522,6 +522,45 @@ h1, h2, h3, h4 {
   top: calc(var(--nav-h) + 2rem);
 }
 
+.about-photo {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: calc(var(--r-lg) - 4px);
+  margin-bottom: 1.5rem;
+  display: block;
+}
+
+.about-card-links {
+  margin-top: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.about-card-link {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color var(--ease);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.about-card-link:hover {
+  color: var(--gold);
+}
+
+.about-card-link svg {
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+
 .about-stat {
   margin-bottom: 1.5rem;
 }
