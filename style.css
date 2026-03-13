@@ -40,7 +40,7 @@ a, button, [role="button"], label, select, input {
   cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 22 22'%3E%3Ccircle cx='11' cy='11' r='9.5' fill='rgba(212%2C184%2C126%2C0.12)' stroke='%23d4b87e' stroke-width='1.4'/%3E%3Ccircle cx='11' cy='11' r='3' fill='%23d4b87e'/%3E%3C/svg%3E") 11 11, pointer !important;
 }
 
-/* ── Attention Orbit Particles ── */
+/* ── SGD Convergence Particles ── */
 .od {
   position: fixed;
   border-radius: 50%;
@@ -50,10 +50,12 @@ a, button, [role="button"], label, select, input {
   top: -20px;
   left: -20px;
 }
-#od0 { width: 4px; height: 4px; background: rgba(212, 184, 126, 0.75); }
-#od1 { width: 3px; height: 3px; background: rgba(212, 184, 126, 0.55); }
-#od2 { width: 3px; height: 3px; background: rgba(212, 184, 126, 0.65); }
-#od3 { width: 2px; height: 2px; background: rgba(212, 184, 126, 0.40); }
+/* fastest lerp → smallest + brightest (closest to minimum) */
+#od0 { width: 4px;  height: 4px;  background: rgba(212, 184, 126, 0.90); }
+#od1 { width: 5px;  height: 5px;  background: rgba(212, 184, 126, 0.60); }
+#od2 { width: 6px;  height: 6px;  background: rgba(212, 184, 126, 0.35); }
+/* slowest lerp → largest + faintest (still converging) */
+#od3 { width: 8px;  height: 8px;  background: rgba(212, 184, 126, 0.15); }
 
 /* ── Base ── */
 html {

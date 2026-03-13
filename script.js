@@ -7,10 +7,12 @@
   'use strict';
 
   /* ────────────────────────────────────
-     Attention Weights Cursor
-     4 particles orbit the cursor at different
-     radii and speeds, like attention heads
-     scanning different parts of the input.
+     SGD Convergence Cursor
+     4 particles each independently lerp toward
+     the mouse at different rates. Fast ones stay
+     close (recent iterations near the minimum),
+     slow ones trail behind (early iterations
+     still converging).
   ──────────────────────────────────── */
   const ods = [
     document.getElementById('od0'),
@@ -19,30 +21,24 @@
     document.getElementById('od3'),
   ];
 
-  const orbits = [
-    { r: 20, speed: 0.048, angle: 0 },
-    { r: 30, speed: 0.031, angle: Math.PI * 0.5 },
-    { r: 15, speed: 0.068, angle: Math.PI },
-    { r: 24, speed: 0.039, angle: Math.PI * 1.5 },
-  ];
+  const lerps = [0.28, 0.16, 0.09, 0.05];
+  const pos   = ods.map(() => ({ x: -100, y: -100 }));
 
   let mx = -100, my = -100;
-  let cx = -100, cy = -100;
 
   document.addEventListener('mousemove', (e) => {
     mx = e.clientX;
     my = e.clientY;
   });
 
-  (function animateOrbits() {
-    cx += (mx - cx) * 0.18;
-    cy += (my - cy) * 0.18;
-    orbits.forEach((o, i) => {
-      o.angle += o.speed;
-      ods[i].style.left = (cx + o.r * Math.cos(o.angle)) + 'px';
-      ods[i].style.top  = (cy + o.r * Math.sin(o.angle)) + 'px';
+  (function animateSGD() {
+    pos.forEach((p, i) => {
+      p.x += (mx - p.x) * lerps[i];
+      p.y += (my - p.y) * lerps[i];
+      ods[i].style.left = p.x + 'px';
+      ods[i].style.top  = p.y + 'px';
     });
-    requestAnimationFrame(animateOrbits);
+    requestAnimationFrame(animateSGD);
   })();
 
   /* ────────────────────────────────────
