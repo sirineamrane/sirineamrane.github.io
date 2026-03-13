@@ -98,7 +98,7 @@
             <div class="about-info">
               <div class="info-item">
                 <span class="info-label">Currently</span>
-                <span class="info-value">BSc CS · University of Hertfordshire</span>
+                <span class="info-value">BSc Computer Science<br><span style="color:var(--text-muted);font-weight:400">University of Hertfordshire</span></span>
               </div>
               <div class="info-item">
                 <span class="info-label">Focus</span>
@@ -197,28 +197,28 @@
             <div class="work-icon">02</div>
             <a href="#" class="work-link" aria-label="View project">↗</a>
           </div>
-          <h3 class="work-title">FlashAttention v1, from scratch</h3>
-          <p class="work-desc">Ground-up implementation of the FlashAttention algorithm (Dao et al., 2022). Memory-efficient exact attention via IO-aware tiling and online softmax recomputation, no approximations, built to understand the hardware-level mechanics.</p>
+          <h3 class="work-title">FlashAttention v2, CUDA from scratch</h3>
+          <p class="work-desc">Full CUDA reimplementation of FlashAttention v2 (Dao et al., 2023). Extends v1 with better thread-block parallelism across sequence length and reduced non-matmul FLOPs. Built at kernel level to understand the hardware mechanics, not just call the API.</p>
           <div class="work-tags">
+            <span class="tag">CUDA kernels</span>
             <span class="tag">IO-aware tiling</span>
             <span class="tag">Online softmax</span>
-            <span class="tag">Backward recomputation</span>
-            <span class="tag">SRAM optimization</span>
+            <span class="tag">Thread-block parallelism</span>
           </div>
         </article>
 
         <article class="work-card reveal">
           <div class="work-card-top">
             <div class="work-icon">03</div>
-            <a href="https://github.com/sirineamrane" class="work-link" aria-label="View project">↗</a>
+            <a href="#" class="work-link" aria-label="View project">↗</a>
           </div>
-          <h3 class="work-title">minGPT, from scratch</h3>
-          <p class="work-desc">A minimal, readable reimplementation of GPT built from first principles. Transformer architecture, autoregressive language modelling, and training loop — no shortcuts, just the math and the code.</p>
+          <h3 class="work-title">AWQ — Activation-Aware Weight Quantization</h3>
+          <p class="work-desc">Custom kernel implementation of AWQ (Lin et al., MIT). Activation-aware per-channel scaling for 4-bit LLM weight quantization — preserves model quality by protecting salient weights identified through activation magnitude analysis.</p>
           <div class="work-tags">
-            <span class="tag">Transformer architecture</span>
-            <span class="tag">Autoregressive LM</span>
-            <span class="tag">Attention mechanism</span>
-            <span class="tag">PyTorch</span>
+            <span class="tag">Weight quantization</span>
+            <span class="tag">Activation-aware scaling</span>
+            <span class="tag">4-bit inference</span>
+            <span class="tag">Custom CUDA kernel</span>
           </div>
         </article>
 
