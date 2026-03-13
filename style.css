@@ -316,6 +316,19 @@ h1, h2, h3, h4 {
   overflow: hidden;
 }
 
+.hero-portrait {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 42%;
+  height: 100%;
+  background-image: url('pompei.jpg');
+  background-size: cover;
+  background-position: center top;
+  mask-image: linear-gradient(to left, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.3) 50%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.3) 50%, transparent 100%);
+}
+
 .hero-blob {
   position: absolute;
   border-radius: 50%;
