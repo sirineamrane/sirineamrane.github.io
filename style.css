@@ -44,7 +44,7 @@ body {
   overflow-x: hidden;
 }
 
-body { cursor: none; }
+* { cursor: none !important; }
 
 a {
   color: inherit;
@@ -54,43 +54,35 @@ a {
 /* ── SGD Convergence Cursor ── */
 .cursor-main {
   position: fixed;
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
   background: #d4b87e;
   border-radius: 50%;
   pointer-events: none;
-  z-index: 9999;
+  z-index: 99999;
   transform: translate(-50%, -50%);
   will-change: left, top;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  box-shadow: 0 0 8px rgba(212, 184, 126, 0.7);
+  box-shadow: 0 0 8px rgba(212, 184, 126, 0.8);
+  top: -20px;
+  left: -20px;
 }
-
-.cursor-main.visible { opacity: 1; }
 
 .sgd-particle {
   position: fixed;
   border-radius: 50%;
   pointer-events: none;
-  z-index: 9998;
+  z-index: 99998;
   transform: translate(-50%, -50%);
   will-change: left, top;
-  opacity: 0;
-  transition: opacity 0.3s ease;
+  top: -20px;
+  left: -20px;
 }
 
-.sgd-particle.visible { opacity: 1; }
-
-.sgd-particle[data-i="0"] { width: 5px;  height: 5px;  background: rgba(212, 184, 126, 0.65); }
-.sgd-particle[data-i="1"] { width: 4px;  height: 4px;  background: rgba(212, 184, 126, 0.48); }
-.sgd-particle[data-i="2"] { width: 3px;  height: 3px;  background: rgba(212, 184, 126, 0.34); }
-.sgd-particle[data-i="3"] { width: 3px;  height: 3px;  background: rgba(212, 184, 126, 0.20); }
-.sgd-particle[data-i="4"] { width: 2px;  height: 2px;  background: rgba(212, 184, 126, 0.10); }
-
-@media (hover: none) {
-  .cursor-main, .sgd-particle { display: none; }
-}
+.sgd-particle[data-i="0"] { width: 5px; height: 5px; background: rgba(212, 184, 126, 0.65); }
+.sgd-particle[data-i="1"] { width: 4px; height: 4px; background: rgba(212, 184, 126, 0.48); }
+.sgd-particle[data-i="2"] { width: 3px; height: 3px; background: rgba(212, 184, 126, 0.34); }
+.sgd-particle[data-i="3"] { width: 3px; height: 3px; background: rgba(212, 184, 126, 0.20); }
+.sgd-particle[data-i="4"] { width: 2px; height: 2px; background: rgba(212, 184, 126, 0.10); }
 
 /* ── Typography ── */
 h1, h2, h3, h4 {

@@ -18,25 +18,15 @@
 
   const lerpFactors = [0.22, 0.15, 0.10, 0.06, 0.035];
 
-  let mx = -200, my = -200;
-  let moved = false;
-
-  const pos = particles.map(() => ({ x: -200, y: -200 }));
+  let mx = -20, my = -20;
+  const pos = particles.map(() => ({ x: -20, y: -20 }));
 
   if (cursorMain) {
     document.addEventListener('mousemove', (e) => {
       mx = e.clientX;
       my = e.clientY;
-
       cursorMain.style.left = mx + 'px';
       cursorMain.style.top  = my + 'px';
-
-      if (!moved) {
-        moved = true;
-        document.body.style.cursor = 'none';
-        cursorMain.classList.add('visible');
-        particles.forEach((p) => p.classList.add('visible'));
-      }
     });
 
     (function animate() {
